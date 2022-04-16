@@ -1,0 +1,19 @@
+<h1>Messages</h1>
+
+<h2>Add an message</h2>
+
+<form method="POST">
+  Name: <input type="text" name="name" /><br/>
+  Message: <input type="text" name="message" /><br/>
+  <input type="submit" value="Submit!" />
+</form>
+
+<h2>Current messages</h2>
+
+
+<% it.messages.forEach((mes) => { %>
+  
+<p><%= mes.sender %>: <%= mes.message %></p>
+    
+
+<% }); %>
