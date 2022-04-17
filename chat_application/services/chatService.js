@@ -1,9 +1,9 @@
 import { executeQuery } from "../database/database.js";
 
-const create = async (name, message) => {
+const create = async (sender, message) => {
   await executeQuery(
     "INSERT INTO messages (sender, message) VALUES ($1, $2);",
-    name,
+    sender,
     message,
   );
 };

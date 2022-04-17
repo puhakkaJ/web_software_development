@@ -6,13 +6,7 @@ let connectionPool;
 if (Deno.env.get("DATABASE_URL")) {
   connectionPool = new Pool(Deno.env.get("DATABASE_URL"), CONCURRENT_CONNECTIONS);
 } else {
-  connectionPool = new Pool({
-    hostname: "database-server",
-    database: "database",
-    user: "username",
-    password: "password",
-    port: Deno.env.PORT,
-  }, CONCURRENT_CONNECTIONS);
+  connectionPool = new Pool({}, CONCURRENT_CONNECTIONS);
 }
 
 

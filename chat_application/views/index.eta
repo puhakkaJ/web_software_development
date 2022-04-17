@@ -3,7 +3,7 @@
 <h2>Add an message</h2>
 
 <form method="POST">
-  Name: <input type="text" name="name" /><br/>
+  Name: <input type="text" name="sender" /><br/>
   Message: <input type="text" name="message" /><br/>
   <input type="submit" value="Submit!" />
 </form>

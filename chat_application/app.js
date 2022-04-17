@@ -23,12 +23,19 @@ const redirectTo = (path) => {
 const addChat = async (request) => {
   const formData = await request.formData();
 
-  const name = formData.get("name");
+  const sender = formData.get("sender");
   const message = formData.get("message");
 
-  await chatService.create(name, message);
-
-  return redirectTo("/");
+  await chatService.create(sender, message);
+  let m = await chatService.findAll();
+  if (m.length > 5) {
+    m = m.slice(0,5)
+  }
+  const data = {
+    messages: m
+  };
+  return new Response(await renderFile("index.eta", data), responseDetails);
+  
 };
 
 const listChats = async (request) => {
@@ -45,12 +52,14 @@ const listChats = async (request) => {
 
 const handleRequest = async (request) => {
   const url = new URL(request.url);
-  if (request.method === "GET" && url.pathname == ("/")) {
+  if (request.method == "GET" && url.pathname == ("/")) {
     return await listChats(request);
-  } else if (request.method === "POST" && url.pathname == ("/")) {
-    return await addChat(request);
-  } 
-  return await listChats(request);
+  } else if (request.method == "POST" && url.pathname == ("/")) {
+    await addChat(request);
+    return await redirectTo("/");
+  } else {
+    return await listChats(request);
+  }
 };
 
 serve(handleRequest, { port: 7777 });
