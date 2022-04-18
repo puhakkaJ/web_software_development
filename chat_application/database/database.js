@@ -9,8 +9,6 @@ const executeQuery = async (query, ...args) => {
 
   try {
     client = await connectionPool.connect();
-    
-
     const result = await client.queryObject(query, ...args);
     if (result.rows) {
       response.rows = result.rows;
