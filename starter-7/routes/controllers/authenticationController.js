@@ -30,7 +30,35 @@ const postRegistrationForm = async ({ request, response }) => {
 };
 
 const postLoginForm = async ({ request, response, state }) => {
-  // implement functionality here
+  const body = request.body();
+  const params = await body.value;
+
+  const email = params.get("email");
+  const password = params.get("password");
+
+  const res = await await userService.findUsersWithEmail(
+    email,
+  );
+  if (res.rows.length === 0) {
+    response.status = 401;
+    return;
+  }
+
+  const userObj = res.rows[0];
+  const hash = userObj.password;
+
+  const passwordCorrect = await bcrypt.compare(password, hash);
+  if (!passwordCorrect) {
+    response.status = 401;
+    return;
+  }
+
+  await state.session.set("authenticated", true);
+  await state.session.set("user", {
+    id: userObj.id,
+    email: userObj.email,
+  });
+  response.redirect("/");
 };
 
 const showLoginForm = ({ render }) => {
