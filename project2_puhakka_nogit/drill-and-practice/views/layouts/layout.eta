@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.2/dist/paper.min.css">
+    <title>Drill and practice application!</title>
+  </head>
+  <body style="background-color:#c2a9c9;">
+    <%~ includeFile("../partials/navigation.eta", it) %>
+    <div class="paper container">
+      <%~ it.body %>
+    </div>
+  </body>
+</html>

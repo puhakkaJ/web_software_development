@@ -1,0 +1,37 @@
+<% layout("./layouts/layout.eta") %>
+
+<% if (it.admin) { %> 
+<h4>You are an ADMIN</h4>
+<h3>Add topics below</h3>
+<% if (it.errors) { %>
+    <ul>
+        <% Object.keys(it.errors).forEach((attribute) => { %>
+            <% Object.values(it.errors[attribute]).forEach((err) => { %>
+                <li><%= err %></li>
+            <% }); %>
+        <% }); %>
+    </ul>
+    <% } %>
+
+    <form method="POST" action="/topics">
+      Name:
+      <input type="text" name="name" value="<%= it.name %>"/>
+      <input type="submit" value="Add topic" />
+    </form>
+    <br><br>
+
+<% }; %>
+<h2>Topics</h2>
+<ul>
+<% it.topics.forEach((topic) => { %>
+    <li><a href="/topics/<%= topic.id %>"><%= topic.name %></a>
+    <% if (it.admin) { %> 
+    <form method="POST" action="/topics/<%= topic.id %>/delete" >
+      <input type="submit" value="Delete" />
+    </form>
+    <% }; %>
+    </li>
+<% }); %>
+</ul>
+
+
