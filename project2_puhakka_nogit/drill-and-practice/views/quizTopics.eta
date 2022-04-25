@@ -1,0 +1,12 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Topics available</h2>
+<% if (it.not_found) { %>
+    <p>There are no questions for topic <%= it.not_found %> yet. Please choose a different topic!</a>
+<% }; %>
+<ul>
+<% it.topics.forEach((topic) => { %>
+    <li><a href="/quiz/<%= topic.id %>"><%= topic.name %></a>
+    </li>
+<% }); %>
+</ul>

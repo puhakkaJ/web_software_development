@@ -1,0 +1,12 @@
+<% layout("./layouts/layout.eta") %>
+
+<h1>Drill and practice!</h1>
+
+<p>This is an application where you can add quizzes and also try to answer some quizzes of various topics. Only reqistered users using the application can view the available topics and the related questions, answer them, and add new questions for topics. Only admin user can add new topics and delete them. </p>
+
+<p>If you haven't used the application before, you can start by <a href="/auth/register">registering</a>. If you have been here before, just <a href="/auth/login">log in</a>!</p>
+
+<p>If you wish to see how such an application could be built, visit the free online <a href="https://wsd.cs.aalto.fi" target="_blank">Web Software Development Course</a> offered by <a href="https://www.aalto.fi/en" target="_blank">Aalto University</a>.</p>
+
+<br><br><br>
+<%~ includeFile("./partials/statistics.eta", it) %>

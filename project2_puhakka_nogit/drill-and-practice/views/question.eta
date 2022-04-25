@@ -1,0 +1,42 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Question: <%= it.question.question_text %></h2>
+<p>Question can only have one correct option. If there is already assigned a correct option, you can only add incorrect options. </p>
+<% if (it.errors) { %>
+    <ul>
+        <% Object.keys(it.errors).forEach((attribute) => { %>
+            <% Object.values(it.errors[attribute]).forEach((err) => { %>
+                <li><%= err %></li>
+            <% }); %>
+        <% }); %>
+    </ul>
+<% } %>
+<form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options">
+      Answer option:
+      <input type="textarea" name="option_text" value="<%= it.option_text %>"/>
+      <% if (it.no_correct_ans) { %>
+        <% if (it.is_correct) { %>
+          <br>Is correct: <input type="checkbox" name="is_correct" checked/>
+        <% } else { %>
+          <br>Is correct: <input type="checkbox" name="is_correct" />
+        <%} %>    
+      <%} else { %>
+      <br>There is already a correct answer added
+      <%} %> 
+      <br><input type="submit" value="Add option" />
+</form>
+<h2>Answer choises</h2>
+<ul>
+<% it.options.forEach((option) => { %>
+    <li><%= option.option_text %>  (<%= option.is_correct %>)
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/options/<%= option.id %>/delete">
+      <input type="submit" value="Delete option" />
+    </form>
+    </li>
+<% }); %>
+</ul>
+<% if (it.options.length == 0) { %>
+    <form method="POST" action="/topics/<%= it.topic.id %>/questions/<%= it.question.id %>/delete">
+      <input type="submit" value="Delete question" />
+    </form>
+<% }; %>
